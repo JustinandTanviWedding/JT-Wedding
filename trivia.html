@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>India Trivia - Tanvi &amp; Justin's Wedding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--sand:#f5e9d3;--sand-mid:#e8d5b0;--sea:#2a6e7c;--sea-light:#4a9dad;--coral:#c96a3e;--gold:#c4933f;--white:#fffdf8;--text:#3a2e25;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Raleway',sans-serif;background:var(--white);color:var(--text)}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,rgba(196,147,63,.07),transparent 28%),radial-gradient(circle at 85% 0,rgba(42,110,124,.08),transparent 30%);pointer-events:none;z-index:-1}
+
+    /* NAV */
+    .topnav{background:rgba(42,110,124,.96);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+    .topnav-brand{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);text-decoration:none}
+    .topnav-links a{color:rgba(255,253,248,.75);text-decoration:none;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;margin-left:1.5rem;transition:color .3s}
+    .topnav-links a:hover,.topnav-links a.active{color:var(--sand)}
+    .topnav-menu-btn{display:none;background:#fff;border:none;color:var(--sea);padding:.3rem .75rem;font-size:1.3rem;cursor:pointer;line-height:1;border-radius:2px}
+    @media(max-width:576px){.topnav{position:relative;flex-wrap:wrap}.topnav-links{display:none;flex-direction:column;width:100%;padding:.75rem 0;gap:0}.topnav-links.open{display:flex}.topnav-links a{margin-left:0;padding:.6rem 0;border-bottom:1px solid rgba(255,253,248,.1)}.topnav-menu-btn{display:block}}
+
+    /* HERO */
+    .trivia-hero{background:linear-gradient(160deg,rgba(42,110,124,.88) 0%,rgba(196,147,63,.75) 100%),url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&q=80') center/cover;padding:5rem 2rem 5rem;text-align:center;color:var(--white);position:relative;overflow:hidden}
+    .trivia-hero .eyebrow{font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--sand);margin-bottom:.8rem}
+    .trivia-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,6vw,3.8rem);font-weight:300;line-height:1.15}
+    .trivia-hero p{max-width:560px;margin:1rem auto 0;font-size:.88rem;opacity:.84;line-height:1.8}
+    .hero-wave{position:absolute;bottom:-2px;left:0;width:100%}
+
+    /* CATEGORY TABS */
+    .cat-tabs{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:2.5rem 1rem 0}
+    .cat-btn{background:transparent;border:1px solid var(--sand-mid);color:#8a7e74;padding:.45rem 1.3rem;font-family:'Raleway',sans-serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:0;display:flex;align-items:center;gap:.4rem}
+    .cat-btn.active,.cat-btn:hover{background:var(--sea);color:var(--white);border-color:var(--sea)}
+    .cat-btn .cat-flag{font-size:1rem}
+
+    /* SCORE BAR */
+    .score-bar{max-width:760px;margin:2rem auto 0;padding:0 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .score-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:#8a7e74}
+    .score-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--sea)}
+    .score-prog-track{flex:1;height:4px;background:var(--sand-mid);position:relative;overflow:hidden}
+    .score-prog-fill{height:100%;background:var(--gold);transition:width .5s ease;width:0%}
+
+    /* QUIZ AREA */
+    .quiz-wrap{max-width:760px;margin:2rem auto 5rem;padding:0 1rem}
+
+    /* QUESTION CARD */
+    .q-card{background:var(--white);border:1px solid var(--sand-mid);padding:2.2rem 2.4rem;box-shadow:0 8px 32px rgba(42,110,124,.08);animation:fadeUp .4s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .q-category-badge{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sea);background:rgba(42,110,124,.08);padding:.3rem .8rem;display:inline-block;margin-bottom:1.2rem}
+    .q-counter{font-size:.72rem;letter-spacing:.1em;color:#a09080;margin-bottom:.8rem}
+    .q-text{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;line-height:1.45;color:var(--text);margin-bottom:2rem}
+    .q-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    @media(max-width:500px){.q-options{grid-template-columns:1fr}}
+    .q-opt{background:transparent;border:1px solid var(--sand-mid);color:var(--text);font-family:'Raleway',sans-serif;font-size:.83rem;padding:1rem 1.2rem;text-align:left;cursor:pointer;transition:all .25s;line-height:1.5;position:relative}
+    .q-opt:hover:not(:disabled){border-color:var(--sea);color:var(--sea);background:rgba(42,110,124,.04)}
+    .q-opt:disabled{cursor:default}
+    .q-opt.correct{background:rgba(42,110,124,.1);border-color:var(--sea);color:var(--sea);font-weight:500}
+    .q-opt.correct::after{content:'✓';position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--sea);font-weight:700}
+    .q-opt.wrong{background:rgba(201,106,62,.08);border-color:var(--coral);color:var(--coral)}
+    .q-opt.wrong::after{content:'✗';position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--coral)}
+    .q-opt.reveal-correct{background:rgba(42,110,124,.07);border-color:var(--sea);color:var(--sea)}
+
+    /* FACT BOX */
+    .fact-box{margin-top:1.6rem;padding:1.3rem 1.5rem;background:linear-gradient(135deg,rgba(42,110,124,.07),rgba(196,147,63,.06));border-left:3px solid var(--gold);animation:fadeUp .35s ease;display:none}
+    .fact-box.show{display:block}
+    .fact-box .fact-label{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+    .fact-box p{font-size:.86rem;line-height:1.8;color:#5a4e44}
+
+    /* NEXT BUTTON */
+    .next-btn{margin-top:1.6rem;background:var(--sea);color:var(--white);border:none;padding:.75rem 2.4rem;font-family:'Raleway',sans-serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .2s;display:none}
+    .next-btn.show{display:inline-block}
+    .next-btn:hover{background:var(--sea-light);transform:translateY(-2px)}
+
+    /* END SCREEN */
+    .end-screen{text-align:center;padding:3rem 1rem;display:none}
+    .end-screen.show{display:block;animation:fadeUp .5s ease}
+    .end-screen h2{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:var(--sea);margin-bottom:.8rem}
+    .end-score{font-size:3.5rem;font-family:'Cormorant Garamond',serif;color:var(--gold);line-height:1}
+    .end-score span{font-size:1.4rem;color:#8a7e74;display:block;font-family:'Raleway',sans-serif;font-weight:300;letter-spacing:.1em;margin-top:.4rem}
+    .end-msg{max-width:440px;margin:1.5rem auto;font-size:.88rem;line-height:1.8;color:#5a4e44}
+    .replay-btn{background:var(--sea);color:var(--white);border:none;padding:.75rem 2.4rem;font-family:'Raleway',sans-serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .2s;margin-top:1rem}
+    .replay-btn:hover{background:var(--sea-light);transform:translateY(-2px)}
+
+    /* INTRO BLURB */
+    .intro-blurb{max-width:640px;margin:3rem auto 0;padding:0 1rem;text-align:center}
+    .intro-blurb p{font-size:.88rem;line-height:1.9;color:#5a4e44}
+    .intro-blurb p strong{color:var(--sea)}
+
+    /* TIPS SECTION */
+    .tips-section{max-width:760px;margin:0 auto 5rem;padding:0 1rem}
+    .tips-section h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--sea);margin-bottom:.4rem}
+    .tips-section .tips-sub{font-size:.82rem;color:#8a7e74;margin-bottom:2rem;line-height:1.7}
+    .tip-card{border:1px solid var(--sand-mid);padding:1.6rem 1.8rem;margin-bottom:1rem;background:var(--white);box-shadow:0 4px 16px rgba(42,110,124,.05);display:flex;gap:1.2rem;align-items:flex-start}
+    .tip-icon{font-size:1.4rem;flex-shrink:0;margin-top:.1rem}
+    .tip-card p{font-size:.86rem;line-height:1.85;color:#5a4e44;margin:0}
+    .tip-card p strong{color:var(--sea)}
+
+    footer{background:var(--text);color:rgba(255,253,248,.5);padding:2rem 0;text-align:center;font-size:.78rem}
+    footer a{color:rgba(255,253,248,.5);text-decoration:none;margin:0 1rem} footer a:hover{color:var(--gold)}
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav-brand" href="index.html">Tanvi <em>&amp;</em> Justin</a>
+  <button class="topnav-menu-btn" id="menuBtn">&#9776;</button>
+  <div class="topnav-links">
+    <a href="index.html">Home</a>
+    <a href="travel.html">Travel</a>
+    <a href="faq.html">FAQ</a>
+    <a href="rsvp.html">RSVP</a>
+    <a href="trivia.html" class="active">Trivia</a>
+  </div>
+</nav>
+
+<div class="trivia-hero">
+  <p class="eyebrow">India Unveiled</p>
+  <h1>Wedding Destination Trivia</h1>
+  <p>How well do you know India, Karnataka, Bangalore, and Mangalore? 14 questions, all mixed together — test your knowledge before the big trip.</p>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fffdf8"/>
+  </svg>
+</div>
+
+<div class="intro-blurb">
+  <p>You're flying across the world to one of the most incredible countries on earth. Whether this is your first time in India or your tenth, there's always something surprising to discover. Answer all 14 questions — each comes with a fun fact to take home.</p>
+</div>
+
+
+<div class="score-bar" id="scoreBar">
+  <div>
+    <div class="score-label">Score</div>
+    <div class="score-num"><span id="scoreCount">0</span> / <span id="scoreTotal">5</span></div>
+  </div>
+  <div class="score-prog-track">
+    <div class="score-prog-fill" id="progFill"></div>
+  </div>
+  <div style="font-size:.72rem;letter-spacing:.1em;color:#a09080" id="qCounter">Q 1 of 5</div>
+</div>
+
+<div class="quiz-wrap" id="quizWrap">
+  <div class="q-card" id="qCard">
+    <div class="q-category-badge" id="qBadge">India</div>
+    <div class="q-counter" id="qNum">Question 1 of 5</div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-options" id="qOptions"></div>
+    <div class="fact-box" id="factBox">
+      <div class="fact-label">Fun Fact</div>
+      <p id="factText"></p>
+    </div>
+    <button class="next-btn" id="nextBtn">Next Question →</button>
+  </div>
+  <div class="end-screen" id="endScreen">
+    <div class="end-score" id="endScore">0<span id="endScoreLabel">out of 5</span></div>
+    <h2 id="endTitle">Well played!</h2>
+    <p class="end-msg" id="endMsg"></p>
+    <button class="replay-btn" id="replayBtn">Play Again</button>
+  </div>
+</div>
+
+<div class="tips-section">
+  <h2>First-Timer's Guide to India</h2>
+  <p class="tips-sub">India is incredible — but it is genuinely unlike anywhere most Americans have traveled. A few mindset tips to help you arrive ready.</p>
+  <div class="tip-card">
+    <div class="tip-icon">🌀</div>
+    <p><strong>Embrace the chaos.</strong> Traffic, noise, crowds, and sensory overload are part of the experience — not a sign something is wrong. India moves at its own rhythm, and once you stop fighting it, it becomes one of the most electrifying places on earth.</p>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--sand);margin-bottom:.5rem;">Tanvi &amp; Justin</div>
+  <a href="index.html">Home</a>
+  <a href="faq.html">FAQ</a>
+  <a href="rsvp.html">RSVP</a>
+  <div style="margin-top:1rem;opacity:.4;font-size:.7rem;">27–30 &middot; 12 &middot; 2026 &middot; Mangalore</div>
+</footer>
+
+<script>
+const ALL_QUESTIONS = [
+  { cat:"India 🇮🇳", q:"Which ancient board game, now played in over 100 countries, was invented in India around 600 AD?", options:["Checkers","Backgammon","Chess","Go"], answer:2, fact:"Chess — originally called \"Chaturanga\" — was invented in India during the Gupta Empire and spread westward through Persia and the Arab world before conquering the globe." },
+  { cat:"India 🇮🇳", q:"India is the world's largest producer of which spice — one you'll see used in abundance at the Haldi ceremony?", options:["Black Pepper","Cardamom","Cinnamon","Turmeric"], answer:3, fact:"India produces around 75% of the world's turmeric supply. The spice has been used in Indian rituals, medicine, and cooking for over 4,000 years — and it will be flying at the Haldi!" },
+  { cat:"India 🇮🇳", q:"How many officially recognised languages are listed in the Indian Constitution's Eighth Schedule?", options:["8","14","22","30"], answer:2, fact:"India recognises 22 scheduled languages in its Constitution — but linguists count over 1,600 distinct languages and dialects spoken across the country." },
+  { cat:"India 🇮🇳", q:"Which ancient wellness practice, now followed by millions worldwide, originated in India over 5,000 years ago?", options:["Tai Chi","Meditation","Pilates","Yoga"], answer:3, fact:"Yoga originated in ancient India and is referenced in the Rig Veda (c. 3000 BC). June 21 is now celebrated as International Yoga Day across 177 countries." },
+  { cat:"Karnataka 🦅", q:"Karnataka produces approximately what percentage of India's total coffee output?", options:["30%","50%","70%","90%"], answer:2, fact:"The hill districts of Coorg (Kodagu) and Chikmagalur in Karnataka are India's coffee heartland, producing world-class Arabica and Robusta beans. India's coffee culture starts here." },
+  { cat:"Karnataka 🦅", q:"What is the state animal of Karnataka, roaming its famous wildlife reserves like Nagarhole and Bandipur?", options:["Bengal Tiger","Indian Leopard","Indian Elephant","Asiatic Lion"], answer:2, fact:"Karnataka is home to over 6,000 wild elephants — one of the highest concentrations anywhere in Asia. The Bandipur-Nagarhole corridor is a critical wildlife corridor connecting ecosystems." },
+  { cat:"Karnataka 🦅", q:"Kannada, Karnataka's official language, is one of India's Classical Languages. How old is its recorded literary history?", options:["500 years","1,000 years","1,500+ years","3,000 years"], answer:2, fact:"Kannada has a literary tradition spanning over 1,500 years, with texts dating to around the 5th century AD. The language has its own unique script and a rich body of poetry and prose." },
+  { cat:"Bangalore 💻", q:"Bangalore sits at roughly what altitude above sea level, giving it one of India's most pleasant year-round climates?", options:["300 metres","920 metres","1,400 metres","2,000 metres"], answer:1, fact:"At about 920 metres (3,000 ft), Bangalore enjoys mild temperatures year-round — warm days and cool nights — earning it the nickname \"Air-conditioned City of India.\"" },
+  { cat:"Bangalore 💻", q:"Which major Indian scientific organisation — responsible for sending a spacecraft to the Moon's south pole in 2023 — is headquartered in Bangalore?", options:["DRDO","BARC","NAL","ISRO"], answer:3, fact:"ISRO (Indian Space Research Organisation) is headquartered in Bangalore. Its Chandrayaan-3 mission successfully soft-landed near the Moon's south pole in August 2023, making India the first country to do so." },
+  { cat:"Bangalore 💻", q:"Bangalore's thriving tech sector is home to over 1,000 IT companies, earning the city a globally recognised nickname. What is it?", options:["Tech Capital of Asia","Silicon Valley of India","Garden City of the East","Start-up Hub of the East"], answer:1, fact:"Bangalore is India's undisputed tech capital, home to the Indian headquarters of Amazon, Google, Microsoft, and hundreds of homegrown start-ups. It's also where Tanvi grew up and where her family lives!" },
+  { cat:"Mangalore 🌊", q:"Mangalore is famous for producing a distinctive style of curved clay roofing tile exported around the world. They are simply known as what?", options:["Coastal Tiles","Kerala Tiles","Mangalore Tiles","Goa Tiles"], answer:2, fact:"\"Mangalore tiles\" — hand-crafted, curved red clay tiles — were first manufactured here in the 1860s using technology introduced by Swiss missionaries. They were exported to Southeast Asia, East Africa, and Australia." },
+  { cat:"Mangalore 🌊", q:"Mangalore sits on the coast of which body of water?", options:["Bay of Bengal","Laccadive Sea","Indian Ocean","Arabian Sea"], answer:3, fact:"Mangalore sits on the Arabian Sea coast, backed by the Western Ghats. The combination of sea breeze, lush hills, and coconut palms makes it one of India's most scenic coastal towns — perfect for a beach wedding." },
+  { cat:"Mangalore 🌊", q:"What is the native language of coastal Karnataka, which includes Mangalore?", options:["Kannada","Tulu","Malayalam","Konkani"], answer:1, fact:"Tulu is spoken by around 2 million people in coastal Karnataka and northern Kerala. It has a rich oral tradition, including the ancient \"Yakshagana\" dance-drama still performed in coastal villages today. Tanvi's family are native Tulu speakers." },
+  { cat:"Mangalore 🌊", q:"Mangalorean cuisine has become celebrated across India and beyond. Which iconic dish originated here?", options:["Butter Chicken","Chicken Ghee Roast","Prawn Koliwada","Crab Masala"], answer:1, fact:"Chicken Ghee Roast — a fiery, tangy roast in a rich ghee-and-spice base — was created in Mangalore and has become one of the most copied dishes in Indian restaurants worldwide." },
+];
+
+function shuffle(arr){ return arr.slice().sort(()=>Math.random()-.5); }
+
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+
+function renderQuestion(){
+  const q = questions[currentIndex];
+  const total = questions.length;
+
+  document.getElementById('qBadge').textContent = q.cat;
+  document.getElementById('qNum').textContent = `Question ${currentIndex+1} of ${total}`;
+  document.getElementById('qCounter').textContent = `Q ${currentIndex+1} of ${total}`;
+  document.getElementById('scoreTotal').textContent = total;
+  document.getElementById('qText').textContent = q.q;
+
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-opt';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => selectAnswer(i));
+    opts.appendChild(btn);
+  });
+
+  document.getElementById('factBox').classList.remove('show');
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('factText').textContent = '';
+  answered = false;
+
+  const card = document.getElementById('qCard');
+  card.style.animation = 'none';
+  void card.offsetWidth;
+  card.style.animation = 'fadeUp .4s ease';
+}
+
+function selectAnswer(chosen){
+  if(answered) return;
+  answered = true;
+  const q = questions[currentIndex];
+  const btns = document.querySelectorAll('.q-opt');
+
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if(i === q.answer) btn.classList.add('correct');
+    else if(i === chosen && chosen !== q.answer) btn.classList.add('wrong');
+  });
+
+  if(chosen === q.answer){
+    score++;
+    document.getElementById('scoreCount').textContent = score;
+  }
+
+  const total = questions.length;
+  document.getElementById('progFill').style.width = ((currentIndex+1)/total*100)+'%';
+  document.getElementById('factText').textContent = q.fact;
+  document.getElementById('factBox').classList.add('show');
+
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.textContent = currentIndex < total-1 ? 'Next Question →' : 'See My Score →';
+  nextBtn.classList.add('show');
+}
+
+function nextQuestion(){
+  if(currentIndex < questions.length-1){ currentIndex++; renderQuestion(); }
+  else showEndScreen();
+}
+
+function showEndScreen(){
+  document.getElementById('qCard').style.display = 'none';
+  const end = document.getElementById('endScreen');
+  end.classList.add('show');
+  const total = questions.length;
+  document.getElementById('endScore').innerHTML = `${score}<span>out of ${total}</span>`;
+  const pct = score/total;
+  document.getElementById('endTitle').textContent = score===total ? "Perfect Score! 🎉" : pct>=.8 ? "Brilliant! 🌟" : pct>=.6 ? "Well Played!" : pct>=.4 ? "Good Effort!" : "India Has Surprises in Store!";
+  const msgs = ["Looks like India has a few surprises waiting for you — the trip will be the best lesson! 😄","You'll learn so much more once you're there. India never stops surprising.","Not bad at all! There's so much more to discover when you land.","Solid knowledge! You're going to love experiencing the real thing.","Impressive! You'll fit right in at the wedding banquet.","You're practically an honorary local. Tanvi's family will be delighted!"];
+  document.getElementById('endMsg').textContent = msgs[Math.min(Math.floor(pct*5.99), msgs.length-1)];
+}
+
+function startGame(){
+  questions = shuffle(ALL_QUESTIONS);
+  currentIndex = 0;
+  score = 0;
+  answered = false;
+  document.getElementById('scoreCount').textContent = '0';
+  document.getElementById('scoreTotal').textContent = questions.length;
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('qCard').style.display = 'block';
+  document.getElementById('endScreen').classList.remove('show');
+  renderQuestion();
+}
+
+document.getElementById('menuBtn').addEventListener('click',function(){document.querySelector('.topnav-links').classList.toggle('open');});
+
+document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+document.getElementById('replayBtn').addEventListener('click', startGame);
+
+startGame();
+</script>
+</body>
+</html>

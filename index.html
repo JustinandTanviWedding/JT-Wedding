@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tanvi &amp; Justin - A Beach Wedding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--sand:#f5e9d3;--sand-mid:#e8d5b0;--sea:#2a6e7c;--sea-light:#4a9dad;--coral:#c96a3e;--gold:#c4933f;--dusk:#7b4f3a;--white:#fffdf8;--text:#3a2e25;}
+    *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+    body{font-family:'Raleway',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at top left,rgba(196,147,63,.08),transparent 32%),radial-gradient(circle at 85% 20%,rgba(42,110,124,.08),transparent 30%);pointer-events:none;z-index:-1;}
+    .navbar{background:transparent;position:fixed;top:0;width:100%;z-index:999;padding:1.2rem 2rem;transition:background .4s,box-shadow .4s;}
+    .navbar.scrolled{background:rgba(245,233,211,.95);box-shadow:0 2px 20px rgba(42,110,124,.12);}
+    .navbar-brand{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--white)!important;letter-spacing:.05em;transition:color .4s;}
+    .navbar.scrolled .navbar-brand{color:var(--sea)!important;}
+    .navbar-nav .nav-link{color:rgba(255,253,248,.9)!important;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;margin:0 .5rem;transition:color .3s;}
+    .navbar.scrolled .navbar-nav .nav-link{color:var(--text)!important;}
+    .navbar-nav .nav-link:hover{color:var(--gold)!important;}
+    .navbar-toggler{border-color:rgba(255,255,255,.6);background:transparent;border-radius:2px;}
+    .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,253,248,0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
+    .navbar.scrolled .navbar-toggler{border-color:var(--sea);background:#fff;}
+    .navbar.scrolled .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%232a6e7c' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
+    .hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(18,35,45,.18),rgba(18,35,45,.48)),url('images/hero.png') center/cover no-repeat;transform:scale(1.05);animation:heroZoom 20s ease-in-out infinite alternate;}
+    @keyframes heroZoom{from{transform:scale(1.05)}to{transform:scale(1.12)}}
+    .hero::after{content:'';position:absolute;inset:auto 0 0;height:32%;background:linear-gradient(to top,rgba(18,35,45,.22),transparent);z-index:1;}
+    .hero-wave{position:absolute;bottom:-2px;left:0;width:100%;z-index:2;}
+    .hero-content{position:relative;z-index:3;text-align:center;color:var(--white);padding:2rem;animation:fadeUp 1.4s ease both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .hero-eyebrow{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,253,248,.75);margin-bottom:1.2rem;animation:fadeUp 1.4s .2s ease both;}
+    .hero-names{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,10vw,7rem);font-weight:300;line-height:1;animation:fadeUp 1.4s .3s ease both;}
+    .hero-names .amp{font-style:italic;color:var(--sand);font-size:.75em;}
+    .hero-divider{width:60px;height:1px;background:rgba(255,253,248,.5);margin:1.8rem auto;animation:fadeUp 1.4s .4s ease both;}
+    .hero-date{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,3vw,1.5rem);font-style:italic;font-weight:300;letter-spacing:.08em;animation:fadeUp 1.4s .5s ease both;}
+.hero-location{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,253,248,.7);margin-top:.5rem;animation:fadeUp 1.4s .6s ease both;}
+    .hero-cta{margin-top:2.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 1.4s .7s ease both;}
+    .hero-scroll{margin-top:2rem;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,253,248,.68);display:inline-flex;align-items:center;gap:.6rem;animation:fadeUp 1.4s .9s ease both;text-decoration:none;}
+    .hero-scroll::after{content:'';width:34px;height:1px;background:rgba(255,253,248,.45);}
+    .btn-sea{background:var(--sea);color:var(--white)!important;border:none;padding:.75rem 2.2rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;border-radius:0;text-decoration:none;transition:background .3s,transform .2s;display:inline-block;}
+    .btn-sea:hover{background:var(--sea-light);transform:translateY(-2px);}
+    .btn-outline-sand{background:transparent;color:var(--white)!important;border:1px solid rgba(255,253,248,.6);padding:.75rem 2.2rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;border-radius:0;text-decoration:none;display:inline-block;}
+    .btn-outline-sand:hover{background:rgba(255,253,248,.1);}
+    .story-countdown{background:var(--white);padding:4rem 0 0;}
+    .story-countdown .story-photo{max-width:100%;max-height:520px;object-fit:cover;display:block;margin:0 auto;}
+    .countdown-bar{
+      background:linear-gradient(135deg,#1a3a42 0%,#12282e 50%,#1a3a42 100%);
+      padding:0;border-top:1px solid rgba(196,147,63,.25);
+      color:var(--white);margin-top:3rem;
+    }
+    .countdown-inner{
+      display:flex;justify-content:center;align-items:stretch;
+      max-width:600px;margin:0 auto;
+    }
+    .countdown-item{
+      text-align:center;padding:1.4rem 2.5rem;flex:1;
+      position:relative;
+    }
+    .countdown-item:not(:last-child)::after{
+      content:'';position:absolute;right:0;top:25%;bottom:25%;
+      width:1px;background:rgba(196,147,63,.25);
+    }
+    .countdown-num{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,2.8rem);font-weight:300;line-height:1;
+      color:var(--white);letter-spacing:.05em;
+    }
+    .countdown-label{
+      font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;
+      color:rgba(196,147,63,.8);margin-top:.4rem;
+    }
+    .countdown-sep{display:none;}
+    section{padding:6rem 0;}
+    .section-eyebrow{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--sea);margin-bottom:.8rem;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:300;line-height:1.1;color:var(--text);}
+    .section-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.2rem);font-style:italic;font-weight:300;color:var(--text);opacity:.75;margin-top:.75rem;max-width:580px;margin-left:auto;margin-right:auto;line-height:1.65;}
+    .section-divider{width:50px;height:1px;background:var(--gold);margin:1.5rem 0 2rem;}
+    .section-divider.center{margin:1.5rem auto 2rem;}
+    .soft-card{background:rgba(255,253,248,.82);border:1px solid rgba(196,147,63,.18);box-shadow:0 18px 45px rgba(42,110,124,.08);backdrop-filter:blur(8px);}
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;}
+    .reveal.in-view{opacity:1;transform:translateY(0);}
+    .story-img-wrap{position:relative;}
+    .story-img-main{width:100%;height:480px;object-fit:cover;display:block;}
+    .story-img-accent{position:absolute;bottom:-30px;right:-30px;width:200px;height:200px;object-fit:cover;border:6px solid var(--white);box-shadow:0 8px 40px rgba(0,0,0,.15);}
+    .story-text{padding:2rem 0 2rem 3rem;}
+    .story-quote{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;font-weight:300;color:var(--sea);line-height:1.6;border-left:2px solid var(--gold);padding-left:1.5rem;margin:1.5rem 0;}
+    .story-body{font-size:.92rem;line-height:1.9;color:#5a4e44;}
+    .story-note{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem;}
+    .story-note-item{padding:1rem 1.1rem;}
+    .story-note-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sea);margin-bottom:.35rem;}
+    .story-note-value{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--text);}
+    .details-section{background:var(--sand);}
+    .detail-card{background:var(--white);padding:2.5rem 2rem;text-align:center;border-bottom:3px solid transparent;transition:border-color .3s,transform .3s,box-shadow .3s;height:100%;}
+    .detail-card:hover{border-color:var(--sea);transform:translateY(-5px);box-shadow:0 15px 40px rgba(42,110,124,.12);}
+    .detail-icon{font-size:2.2rem;margin-bottom:1rem;display:block;}
+    .detail-icon svg{width:52px;height:34px;color:var(--sea);display:inline-block;}
+    .detail-card h5{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--sea);margin-bottom:.7rem;}
+    .detail-card p{font-size:.87rem;color:#6a5e54;line-height:1.7;}
+    .timeline-section{background:var(--white);}
+    .timeline{position:relative;max-width:700px;margin:0 auto;}
+    .timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sand-mid);transform:translateX(-50%);}
+    .tl-item{display:flex;justify-content:flex-end;padding-right:calc(50% + 2rem);margin-bottom:2.5rem;position:relative;}
+    .tl-item.right{justify-content:flex-start;padding-right:0;padding-left:calc(50% + 2rem);}
+    .tl-dot{position:absolute;left:50%;top:.5rem;width:14px;height:14px;background:var(--gold);border:2px solid var(--white);border-radius:50%;transform:translateX(-50%);box-shadow:0 0 0 3px var(--sand-mid);}
+    .tl-card{background:var(--sand);padding:1.2rem 1.5rem;max-width:260px;transition:transform .35s ease,box-shadow .35s ease,background .35s ease;}
+    .tl-card:hover{transform:translateY(-4px);background:#f8efdc;box-shadow:0 12px 28px rgba(42,110,124,.12);}
+    .tl-day{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--sea);font-weight:400;}
+    .tl-event{font-size:.82rem;color:#5a4e44;margin-top:.3rem;line-height:1.6;}
+    .tl-block{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--sand-mid);}
+    .tl-block:first-of-type{margin-top:.5rem;padding-top:.5rem;}
+    .tl-time{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.25rem;}
+    .gallery-strip{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:250px 250px;gap:4px;}
+    .gallery-strip .g-main{grid-row:1/3;}
+    .gallery-strip img{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block;}
+    .gallery-strip img:hover{transform:scale(1.04);}
+    .gallery-strip .g-item{overflow:hidden;}
+    .venue-card{padding:2rem 2rem 2rem 0;}
+    .travel-pill-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;}
+    .travel-pill{padding:.65rem .9rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sea);}
+    .venue-img{height:500px;object-fit:cover;width:100%;}
+    .cta-panel{padding:2.2rem 2rem;max-width:620px;margin:0 auto;}
+    footer{background:var(--text);color:rgba(255,253,248,.6);padding:3rem 0 2rem;text-align:center;}
+    footer .footer-names{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--sand);margin-bottom:.5rem;}
+    footer .footer-date{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;}
+    footer .footer-links a{color:rgba(255,253,248,.5);text-decoration:none;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;margin:0 1rem;transition:color .3s;}
+    footer .footer-links a:hover{color:var(--gold);}
+    footer .footer-copy{font-size:.72rem;margin-top:2rem;opacity:.4;}
+    .modal-overlay{position:fixed;inset:0;background:rgba(18,35,45,.85);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;}
+    .modal-overlay.open{display:flex;}
+    .modal-box{background:var(--white);max-width:680px;width:100%;max-height:88vh;overflow-y:auto;position:relative;}
+    .modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text);line-height:1;}
+    .modal-header{background:var(--sea);padding:2rem 2.5rem 1.5rem;color:var(--white);}
+    .modal-header p.eyebrow{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sand);margin-bottom:.4rem;}
+    .modal-header h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;}
+    .modal-body{padding:2rem 2.5rem;}
+    .step-block{margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--sand-mid);}
+    .step-block:last-child{border-bottom:none;margin-bottom:0;}
+    .step-num{display:inline-block;width:28px;height:28px;background:var(--gold);color:var(--white);font-size:.75rem;font-weight:600;line-height:28px;text-align:center;border-radius:50%;margin-bottom:.6rem;}
+    .step-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--sea);margin-bottom:.5rem;}
+    .step-body{font-size:.85rem;line-height:1.85;color:#5a4e44;}
+    .step-body strong{color:var(--text);}
+    .step-body a{color:var(--coral);text-decoration:none;}
+    .step-body a:hover{text-decoration:underline;}
+    .step-tag{display:inline-block;background:var(--sand);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;color:var(--sea);margin-bottom:.6rem;}
+    @media(max-width:768px){.story-text,.venue-card{padding:2rem 0 0}.story-img-accent{display:none}.story-note{grid-template-columns:1fr}.gallery-strip{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px 180px}.gallery-strip .g-main{grid-row:auto}.timeline::before{left:1rem}.tl-item,.tl-item.right{justify-content:flex-start;padding-right:0;padding-left:3rem}.tl-dot{left:1rem}.countdown-item{padding:1.2rem .6rem}.countdown-num{font-size:clamp(1.5rem,7vw,2.2rem)}.countdown-label{font-size:.55rem;letter-spacing:.2em}}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="#">T <span style="font-style:italic">&amp; </span>J</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#details">Events & Schedule</a></li>
+        <li class="nav-item"><a class="nav-link" href="travel.html">Travel</a></li>
+        <li class="nav-item"><a class="nav-link" href="rsvp.html">RSVP</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="trivia.html">Trivia</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">We're getting married</p>
+    <h1 class="hero-names">Tanvi <span class="amp">&amp;</span> Justin</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-date">27 - 30 December 2026 &nbsp;&middot;&nbsp; Four Days of Celebration</p>
+    <p class="hero-location">&#128205; Manthan Beach Resort &nbsp;&middot;&nbsp; Mangalore, Karnataka</p>
+    <div class="hero-cta">
+      <a href="rsvp.html" class="btn-sea">RSVP Now</a>
+      <a href="#details" class="btn-outline-sand">Event Details</a>
+    </div>
+    <a href="#our-story" class="hero-scroll">Discover the Weekend</a>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fffdf8"/>
+  </svg>
+</section>
+
+<section class="story-countdown" id="our-story">
+  <div class="container text-center reveal">
+    <img src="images/story.png" alt="Tanvi and Justin" class="story-photo"/>
+  </div>
+  <div class="countdown-bar" id="countdown-bar">
+    <div class="countdown-inner">
+      <div class="countdown-item"><div class="countdown-num" id="cd-days">00</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-mins">00</div><div class="countdown-label">Minutes</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Seconds</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="details-section" id="details">
+  <div class="container text-center">
+    <p class="section-eyebrow">The Celebration</p>
+    <h2 class="section-title">A Four-Day Wedding</h2>
+    <p class="section-tagline">We're so excited to celebrate with you as we bring together our families, friends, and traditions.</p>
+    <div class="section-divider center"></div>
+    <div class="row g-4 mt-2 justify-content-center">
+      <div class="col-md-6 col-lg-4 reveal"><div class="detail-card"><span class="detail-icon">&#127807;</span><h5>Mehendi</h5><p><strong>December 27, 2026</strong><br/>An intimate evening to begin our wedding celebrations. Guests are invited to decorate their arms with intricate henna designs in preparation for the celebration ahead.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="detail-card"><span class="detail-icon">&#128141;</span><h5>Muhurta</h5><p><strong>December 28, 2026</strong><br/>A sacred pre-wedding ritual rooted in coastal Karnataka traditions. Toe rings are placed on the bride's feet — a deeply personal act marking her transition into married life.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="detail-card"><span class="detail-icon">&#127926;</span><h5>Sangeet</h5><p><strong>December 28, 2026</strong><br/>An evening of music, dance, and laughter as both families share performances, stories, and the pure joy of coming together.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="detail-card"><span class="detail-icon">🥥🪷</span><h5>Haldi &amp; Roce</h5><p><strong>December 29–30, 2026</strong><br/>A fragrant blend of turmeric, rose water, and coconut milk is applied to the couple by loved ones. Expect laughter, lighthearted games, and hands glowing in golden hues.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="detail-card"><span class="detail-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="32" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><circle cx="32" cy="16" r="11"/></svg></span><h5>Wedding &amp; Reception</h5><p><strong>December 30, 2026</strong><br/>The ceremony begins at <strong>5:30 PM</strong> at the beachfront mandap, followed by a reception dinner.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section" id="schedule">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <p class="section-eyebrow">Full Weekend</p>
+      <h2 class="section-title">Schedule of Events</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Thursday, Dec 27</div>
+        <div class="tl-block"><div class="tl-time">Afternoon</div><div class="tl-event">Guest arrivals &amp; check-in at resort</div></div>
+        <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Mehendi</div></div>
+      </div></div>
+      <div class="tl-item right reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Friday, Dec 28</div>
+        <div class="tl-block"><div class="tl-time">Morning</div><div class="tl-event">Relaxation at the beach<br/>Explore the resort</div></div>
+        <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Muhurta<br/>Sangeet</div></div>
+      </div></div>
+      <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Saturday, Dec 29</div>
+        <div class="tl-block"><div class="tl-time">Morning</div><div class="tl-event">Haldi</div></div>
+        <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Free to explore &amp; unwind</div></div>
+      </div></div>
+      <div class="tl-item right reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Sunday, Dec 30</div>
+        <div class="tl-block"><div class="tl-time">Morning</div><div class="tl-event">Roce</div></div>
+        <div class="tl-block"><div class="tl-time">Afternoon</div><div class="tl-event">Vegetarian banana leaf meal</div></div>
+        <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Wedding Ceremony &middot; 5:30 PM<br/>Cocktails &amp; Reception Dinner</div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery-strip reveal">
+  <div class="g-item g-main"><img src="images/gallery_sunset.png" alt="Sunset mood"/></div>
+  <div class="g-item"><img src="images/gallery_gold.jpg" alt="Golden hour"/></div>
+  <div class="g-item"><img src="images/gallery_teal.jpg" alt="Coastal teal"/></div>
+  <div class="g-item"><img src="images/gallery_night.jpg" alt="Night mood"/></div>
+  <div class="g-item"><img src="images/gallery_floral.jpg" alt="Floral mood"/></div>
+</div>
+
+
+
+<section style="background:var(--sand);padding:5rem 0;text-align:center;">
+  <div class="container reveal">
+    <div class="cta-panel soft-card">
+      <p class="section-eyebrow">We can't wait to see you</p>
+      <h2 class="section-title">Kindly let us know<br/><em>you're coming</em></h2>
+      <div class="section-divider center"></div>
+      <p style="font-size:.9rem;color:#6a5e54;margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;">Please RSVP by <strong>May 1st, 2025</strong>.<br/>We'd love to make sure there's a place set for you at the table.</p>
+      <a href="rsvp.html" class="btn-sea">RSVP Now</a>
+      &nbsp;&nbsp;
+      <a href="travel.html" style="display:inline-block;background:transparent;color:var(--sea)!important;border:1px solid var(--sea);padding:.75rem 2.2rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;border-radius:0;text-decoration:none;">Travel Info</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-names">Tanvi &amp; Justin</div>
+  <div class="footer-date">27 &ndash; 30 &middot; 12 &middot; 2026 &nbsp;&middot;&nbsp; Manthan Beach Resort, Mangalore</div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="travel.html">Travel</a><a href="rsvp.html">RSVP</a><a href="faq.html">FAQ</a></div>
+  <div class="footer-copy">Made with love &nbsp;&#127754;&nbsp; Tanvi &amp; Justin's Wedding</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const nav=document.getElementById('mainNav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) entry.target.classList.add('in-view');
+    });
+  },{threshold:.16});
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+  const wd=new Date('2026-12-29T17:30:00+05:30');
+  function tick(){
+    const diff=wd-new Date();
+    if(diff<=0){
+      document.getElementById('countdown-bar').innerHTML=`
+        <div class="container text-center py-3">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:300;letter-spacing:0.12em;color:var(--white);margin:0;">
+            Today we celebrate &nbsp;·&nbsp; <em>Tanvi &amp; Justin</em>
+          </p>
+          <p style="font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,253,248,0.65);margin-top:0.4rem;">
+            Manthan Beach Resort &nbsp;·&nbsp; Mangalore
+          </p>
+        </div>`;
+      return;
+    }
+    const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+    ['days','hours','mins','secs'].forEach((id,i)=>document.getElementById('cd-'+id).textContent=String([d,h,m,s][i]).padStart(2,'0'));
+  }
+  tick();
+  setInterval(tick,1000);
+
+</script>
+
+
+</body>
+</html>

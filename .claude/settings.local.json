@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(where node:*)",
+      "Bash(where npm:*)",
+      "Read(//c/Windows/System32/WindowsPowerShell//**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/Jdel3/AppData/Roaming/**)"
+    ]
+  }
+}

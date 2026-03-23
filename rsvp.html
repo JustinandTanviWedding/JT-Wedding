@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RSVP - Tanvi &amp; Justin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--sand:#f5e9d3;--sand-mid:#e8d5b0;--sea:#2a6e7c;--sea-light:#4a9dad;--gold:#c4933f;--white:#fffdf8;--text:#3a2e25;}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Raleway',sans-serif;background:var(--white);color:var(--text)}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 18% 14%,rgba(196,147,63,.08),transparent 25%),radial-gradient(circle at 82% 0,rgba(42,110,124,.08),transparent 30%);pointer-events:none;z-index:-1}
+    .topnav{background:var(--sea);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+    .topnav-brand{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);text-decoration:none}
+    .topnav-links a{color:rgba(255,253,248,.75);text-decoration:none;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;margin-left:1.5rem;transition:color .3s}
+    .topnav-links a:hover{color:var(--sand)}
+    .rsvp-hero{background:linear-gradient(135deg,var(--sea) 0%,#1a4e5a 100%);padding:5rem 2rem 4rem;text-align:center;color:var(--white);position:relative;overflow:hidden}
+    .rsvp-hero::before{content:'';position:absolute;inset:auto -8% -30% auto;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(245,233,211,.18),transparent 60%)}
+    .rsvp-hero .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sand);margin-bottom:.8rem}
+    .rsvp-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:300}
+    .rsvp-hero p{font-size:.9rem;opacity:.8;margin-top:.8rem}
+    .hero-wave{position:absolute;bottom:-2px;left:0;width:100%}
+    .rsvp-wrapper{max-width:640px;margin:-2rem auto 4rem;padding:0 1rem;position:relative;z-index:10}
+    .rsvp-card{background:rgba(255,253,248,.94);box-shadow:0 20px 60px rgba(0,0,0,.12);border:1px solid rgba(196,147,63,.14);backdrop-filter:blur(10px)}
+    .rsvp-card{padding:3rem 2.5rem}
+    .form-label{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sea);margin-bottom:.4rem;font-weight:500}
+    .form-control,.form-select{border:none;border-bottom:1px solid var(--sand-mid);border-radius:0;padding:.6rem 0;background:transparent;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text);transition:border-color .3s}
+    .form-control:focus,.form-select:focus{box-shadow:none;border-color:var(--sea);background:transparent}
+    textarea.form-control{min-height:80px;resize:vertical}
+    .rsvp-toggle{display:flex;border:1px solid var(--sand-mid);overflow:hidden}
+    .rsvp-toggle input[type="radio"]{display:none}
+    .rsvp-toggle label{flex:1;text-align:center;padding:.85rem;cursor:pointer;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:#8a7e74;transition:background .3s,color .3s}
+    .rsvp-toggle input[value="yes"]:checked ~ label[for="att-yes"],.rsvp-toggle input[value="no"]:checked ~ label[for="att-no"]{background:var(--sea);color:var(--white)}
+    #att-yes-lbl{border-right:1px solid var(--sand-mid)}
+    .guests-field{display:none}.guests-field.visible{display:block}
+    .btn-submit{background:var(--sea);color:var(--white);border:none;width:100%;padding:1rem;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .2s;font-family:'Raleway',sans-serif;margin-top:1.5rem}
+    .btn-submit:hover{background:var(--sea-light);transform:translateY(-2px)} .btn-submit:disabled{opacity:.5;cursor:not-allowed}
+    .helper-note{font-size:.8rem;line-height:1.7;color:#8a7e74;margin-top:1rem}
+    .success-box{display:none;text-align:center;padding:3rem 2rem}.success-box.visible{display:block}
+    .success-icon{font-size:3rem;margin-bottom:1rem}.success-box h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--sea)} .success-box p{font-size:.9rem;color:#6a5e54;margin-top:.8rem;line-height:1.8}
+    .admin-section{max-width:900px;margin:0 auto 5rem;padding:0 1rem;display:none}.admin-section.visible{display:block}
+    .admin-header{background:var(--text);color:var(--white);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center}
+    .admin-header h4{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300}
+    .admin-stats{display:flex;gap:2rem;flex-wrap:wrap;background:var(--sand);padding:1.5rem 2rem}.stat-box{text-align:center}.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--sea)}.stat-lbl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#8a7e74}
+    .admin-table-wrap{overflow-x:auto} table{width:100%;border-collapse:collapse;font-size:.85rem} thead th{background:var(--sea);color:var(--white);padding:.75rem 1rem;text-align:left;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400} tbody tr{border-bottom:1px solid var(--sand-mid)} tbody tr:hover{background:var(--sand)} tbody td{padding:.75rem 1rem;vertical-align:top}
+    .badge-yes{background:#d4edda;color:#1a6632;padding:.2rem .6rem;font-size:.72rem;border-radius:2px}.badge-no{background:#f8d7da;color:#842029;padding:.2rem .6rem;font-size:.72rem;border-radius:2px}
+    .admin-login{background:var(--sand);padding:2rem;text-align:center;margin-bottom:2rem;border:1px dashed var(--sand-mid)} .admin-login p{font-size:.82rem;color:#6a5e54;margin-bottom:1rem} .admin-login input{border:1px solid var(--sand-mid);padding:.5rem 1rem;font-family:'Raleway',sans-serif;font-size:.85rem;margin-right:.5rem;border-radius:0;color:var(--text)} .admin-login button,.export-btn{background:var(--sea);color:var(--white);border:none;padding:.5rem 1.5rem;font-size:.75rem;letter-spacing:.1em;cursor:pointer}
+    footer{background:var(--text);color:rgba(255,253,248,.5);padding:2rem 0;text-align:center;font-size:.78rem;letter-spacing:.1em} footer a{color:rgba(255,253,248,.5);text-decoration:none;margin:0 1rem} footer a:hover{color:var(--gold)}
+    .topnav-menu-btn{display:none;background:#fff;border:none;color:var(--sea);padding:.3rem .75rem;font-size:1.3rem;cursor:pointer;line-height:1;border-radius:2px}
+    @media(max-width:576px){.rsvp-card{padding:2rem 1.2rem}.topnav{position:relative;flex-wrap:wrap}.topnav-links{display:none;flex-direction:column;width:100%;padding:.75rem 0;gap:0}.topnav-links.open{display:flex}.topnav-links a{margin-left:0;padding:.6rem 0;border-bottom:1px solid rgba(255,253,248,.1)}.topnav-menu-btn{display:block}}
+
+    /* TRAVEL DATE CALENDAR */
+    .cal-wrap{margin-top:.6rem}
+    .cal-months{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    @media(max-width:480px){.cal-months{grid-template-columns:1fr}}
+    .cal-month-header{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sea);margin-bottom:.7rem;text-align:center;font-weight:500}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+    .cal-day-hdr{font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#b0a090;text-align:center;padding:.25rem 0}
+    .cal-day{height:28px;display:flex;align-items:center;justify-content:center;font-size:.78rem;cursor:pointer;transition:all .18s;color:var(--text);position:relative;user-select:none}
+    .cal-day.empty{cursor:default}
+    .cal-day:not(.empty):not(.range-start):not(.range-end):not(.selected):hover{background:rgba(42,110,124,.12);border-radius:50%}
+    .cal-day.in-range{background:rgba(42,110,124,.1);color:var(--sea)}
+    .cal-day.range-start{background:var(--sea);color:var(--white);border-radius:50% 0 0 50%}
+    .cal-day.range-end{background:var(--sea);color:var(--white);border-radius:0 50% 50% 0}
+    .cal-day.range-start.range-end{border-radius:50%}
+    .cal-selected-display{display:flex;gap:.75rem;margin-top:1rem}
+    .cal-sel-box{flex:1;padding:.55rem .8rem;border:1px solid var(--sand-mid);background:var(--white)}
+    .cal-sel-label{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sea);margin-bottom:.2rem}
+    .cal-sel-val{color:var(--text);font-size:.84rem}
+    .cal-actions{display:flex;align-items:center;justify-content:space-between;margin-top:.6rem}
+    .cal-clear{font-size:.68rem;color:var(--coral);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:'Raleway',sans-serif}
+    .cal-legend{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:#9a8e84}
+    .cal-hint{font-size:.72rem;color:#9a8e84;margin-bottom:.5rem}
+  </style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="topnav-brand" href="index.html">Tanvi <em>&amp;</em> Justin</a>
+  <button class="topnav-menu-btn" id="menuBtn">&#9776;</button>
+  <div class="topnav-links">
+    <a href="index.html">Home</a>
+    <a href="travel.html">Travel</a>
+    <a href="faq.html">FAQ</a>
+    <a href="trivia.html">Trivia</a>
+  </div>
+</nav>
+
+<div class="rsvp-hero">
+  <p class="eyebrow">You're Invited</p>
+  <h1>Kindly RSVP</h1>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fffdf8"/>
+  </svg>
+</div>
+
+<div class="rsvp-wrapper">
+  <div class="rsvp-card" id="form-card">
+      <div id="rsvp-form-wrap">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--sea);text-align:center;margin-bottom:2rem;">Please respond by <strong style="font-size:1.3rem;color:var(--gold);letter-spacing:.04em;">May 1, 2026</strong></p>
+        <form id="rsvpForm" novalidate>
+          <div class="mb-4">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Your full name" required/>
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-control" id="email" placeholder="your@email.com" required/>
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" placeholder="+91 98765 43210"/>
+          </div>
+          <div class="mb-4">
+            <label class="form-label d-block">Will you be joining us? *</label>
+            <div class="rsvp-toggle" id="attendance-toggle">
+              <input type="radio" name="attendance" id="att-yes" value="yes"/>
+              <label for="att-yes" id="att-yes-lbl">Joyfully Accepts</label>
+<input type="radio" name="attendance" id="att-no" value="no"/>
+              <label for="att-no" id="att-no-lbl">Unable to Attend</label>
+            </div>
+          </div>
+          <div class="mb-4 guests-field" id="guests-wrap">
+            <label class="form-label">Number of Guests (including yourself)</label>
+            <select class="form-select" id="guestCount">
+              <option value="1">1 - Just me</option>
+              <option value="2">2 - Myself + 1</option>
+              <option value="3">3 - Myself + 2</option>
+              <option value="4">4 - Myself + 3</option>
+              <option value="5">5 - Myself + 4</option>
+            </select>
+          </div>
+          <div class="mb-4 guests-field" id="allergy-wrap">
+            <label class="form-label">Dietary Restrictions / Allergies</label>
+            <input type="text" class="form-control" id="allergies" placeholder="e.g. nut allergy, gluten-free"/>
+          </div>
+          <div class="mb-4 guests-field" id="india-travel-wrap">
+            <label class="form-label">Your India Travel Dates <span style="opacity:.5">(approximate)</span></label>
+            <input type="hidden" id="indiaArrival"/>
+            <input type="hidden" id="indiaDeparture"/>
+            <div class="cal-wrap">
+              <p class="cal-hint">Tap your arrival date, then your departure date. This helps us plan transportation and accommodations.</p>
+              <div id="travel-calendar"></div>
+            </div>
+            <p id="india-duration" style="font-size:.8rem;color:var(--sea);margin-top:.5rem;min-height:1.2em;"></p>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">A Message for the Couple <span style="opacity:.5">(optional)</span></label>
+            <textarea class="form-control" id="message" placeholder="Share your wishes or a memory..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">Send My RSVP</button>
+          <p class="helper-note">Your reply is saved in this browser and can also notify the couple by email using the existing EmailJS setup below.</p>
+        </form>
+      </div>
+      <div class="success-box" id="success-box">
+        <div class="success-icon">&#127754;</div>
+        <h3 id="success-title">We'll see you on the beach!</h3>
+        <p id="success-msg">Thank you for your RSVP, <strong id="success-name"></strong>.<br/>We're so excited to celebrate with you. Keep an eye on your inbox for updates.</p>
+        <a href="index.html" style="display:inline-block;margin-top:2rem;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sea);">&larr; Back to Home</a>
+      </div>
+    </div>
+</div>
+
+<div class="admin-section" id="admin">
+  <div class="admin-login" id="admin-login-wrap">
+    <p>Wedding planner access - enter your admin password to view RSVPs</p>
+    <input type="password" id="admin-pw" placeholder="Enter admin password"/>
+    <button onclick="checkAdminLogin()">View Responses</button>
+    <p style="font-size:.72rem;margin-top:.8rem;opacity:.6;">Configured password lives in the script below.</p>
+  </div>
+  <div id="admin-panel" style="display:none;">
+    <div class="admin-header"><h4>RSVP Responses</h4><button class="export-btn" onclick="exportCSV()">Export CSV</button></div>
+    <div class="admin-stats" id="admin-stats"></div>
+    <div class="admin-table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Attending</th><th>Guests</th><th>Meals</th><th>India Arrival</th><th>India Departure</th><th>Days</th><th>Allergies</th><th>Message</th><th>Submitted</th></tr></thead>
+        <tbody id="rsvp-table-body"></tbody>
+      </table>
+      <p id="no-rsvps" style="text-align:center;padding:2rem;color:#8a7e74;font-size:.88rem;display:none;">No RSVPs yet - share the link and responses will appear here.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="margin-bottom:.5rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--sand);">Tanvi &amp; Justin</div>
+  <a href="index.html">Home</a>
+  <a href="faq.html">FAQ</a>
+  <div style="margin-top:1rem;opacity:.4;font-size:.7rem;">27-30 &middot; 05 &middot; 2025 &middot; Mangalore</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  const CONFIG={
+    adminPassword:'beach2025',
+    rsvpDeadline:'2025-05-01',
+    coupleName:'Tanvi & Justin',
+    weddingDate:'May 27-30, 2025',
+    venue:'Manthan Beach Resort, Mangalore',
+    emailjs_public_key:'VtEmn7HS2jpayoxJl',
+    emailjs_service_id:'service_1odtvqj',
+    emailjs_template_id:'template_gluaxvw',
+    notify:[
+      {name:'Justin',email:'Justindelgado182@gmail.com',phone:'(864) 373-1876'},
+      {name:'Tanvi',email:'tanvihegde12@gmail.com',phone:'(812) 272-8651'}
+    ]
+  };
+
+  document.getElementById('menuBtn').addEventListener('click',function(){document.querySelector('.topnav-links').classList.toggle('open');});
+
+  if(CONFIG.emailjs_public_key!=='YOUR_EMAILJS_PUBLIC_KEY') emailjs.init({publicKey:CONFIG.emailjs_public_key});
+
+  async function sendNotifications(record){
+    if(CONFIG.emailjs_public_key==='YOUR_EMAILJS_PUBLIC_KEY') return;
+    const params={guest_name:record.name,guest_email:record.email,guest_phone:record.phone||'Not provided',attending:record.attending?'YES - Attending':'NO - Declining',guests:record.attending?record.guests+' guest(s)':'-',meal:record.meal||'-',events:record.events||'-',allergies:record.allergies||'None',message:record.message||'-',submitted_at:record.submittedAt,couple:CONFIG.coupleName,venue:CONFIG.venue};
+    for(const recipient of CONFIG.notify){
+      try{await emailjs.send(CONFIG.emailjs_service_id,CONFIG.emailjs_template_id,{...params,to_name:recipient.name,to_email:recipient.email});}
+      catch(err){console.warn('EmailJS send failed for',recipient.email,err);}
+    }
+  }
+
+  const attRadios=document.querySelectorAll('input[name="attendance"]');
+  const guestFields=document.querySelectorAll('.guests-field');
+
+  attRadios.forEach(radio=>radio.addEventListener('change',()=>{
+    const attendance=document.querySelector('input[name="attendance"]:checked')?.value;
+    const attending=attendance==='yes';
+    guestFields.forEach(f=>f.classList.toggle('visible',attending));
+
+    const msgPlaceholders={yes:'Share your wishes or a memory...',no:'Send the couple a warm message...'};
+    document.getElementById('message').placeholder=msgPlaceholders[attendance]||'Share your wishes or a memory...';
+  }));
+
+
+  document.getElementById('indiaArrival').addEventListener('change', updateDuration);
+  document.getElementById('indiaDeparture').addEventListener('change', updateDuration);
+  function updateDuration(){
+    const a=document.getElementById('indiaArrival').value;
+    const d=document.getElementById('indiaDeparture').value;
+    const el=document.getElementById('india-duration');
+    if(a&&d){const days=Math.round((new Date(d)-new Date(a))/86400000);el.textContent=days>0?`${days} day${days!==1?'s':''} in India`:'';}
+    else el.textContent='';
+  }
+
+  document.getElementById('rsvpForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    const name=document.getElementById('fullName').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const attendance=document.querySelector('input[name="attendance"]:checked')?.value;
+    let valid=true;
+    if(!name){document.getElementById('fullName').classList.add('is-invalid');valid=false;} else document.getElementById('fullName').classList.remove('is-invalid');
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('email').classList.add('is-invalid');valid=false;} else document.getElementById('email').classList.remove('is-invalid');
+    if(!attendance){alert('Please select whether you will attend.');valid=false;}
+    if(!valid) return;
+
+    const attending=attendance==='yes';
+    const guestCount=attending?parseInt(document.getElementById('guestCount').value)||1:0;
+    const indiaArrival=document.getElementById('indiaArrival').value;
+    const indiaDeparture=document.getElementById('indiaDeparture').value;
+    const indiaDays=(indiaArrival&&indiaDeparture)?Math.round((new Date(indiaDeparture)-new Date(indiaArrival))/86400000):null;
+    const record={id:Date.now(),name,email,phone:document.getElementById('phone').value.trim(),attending,guests:guestCount,indiaArrival,indiaDeparture,indiaDays,allergies:document.getElementById('allergies').value.trim(),message:document.getElementById('message').value.trim(),submittedAt:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})};
+    const all=getAll(); all.push(record); localStorage.setItem('tanvi_justin_rsvps',JSON.stringify(all));
+    sendNotifications(record).catch(err=>console.warn('Notification error:',err));
+
+    document.getElementById('rsvp-form-wrap').style.display='none';
+    const sb=document.getElementById('success-box'); sb.classList.add('visible');
+    document.getElementById('success-name').textContent=name.split(' ')[0];
+    if(!attending){
+      document.getElementById('success-title').textContent="We'll miss you dearly.";
+      document.getElementById('success-msg').innerHTML=`Thank you for letting us know, <strong>${name.split(' ')[0]}</strong>. We'll be thinking of you on our special day.`;
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  function getAll(){try{return JSON.parse(localStorage.getItem('tanvi_justin_rsvps'))||[]}catch{return[]}}
+  function checkAdminLogin(){const pw=document.getElementById('admin-pw').value; if(pw===CONFIG.adminPassword){document.getElementById('admin-login-wrap').style.display='none';document.getElementById('admin-panel').style.display='block';renderAdmin();} else alert('Incorrect password. Please try again.');}
+  document.getElementById('admin-pw').addEventListener('keydown',e=>{if(e.key==='Enter') checkAdminLogin();});
+  function renderAdmin(){
+    const all=getAll(),attending=all.filter(r=>r.attending),declining=all.filter(r=>!r.attending),totalGuests=attending.reduce((s,r)=>s+parseInt(r.guests||1,10),0);
+    document.getElementById('admin-stats').innerHTML=`<div class="stat-box"><div class="stat-num">${all.length}</div><div class="stat-lbl">Total RSVPs</div></div><div class="stat-box"><div class="stat-num" style="color:#1a6632">${attending.length}</div><div class="stat-lbl">Accepting</div></div><div class="stat-box"><div class="stat-num" style="color:#842029">${declining.length}</div><div class="stat-lbl">Declining</div></div><div class="stat-box"><div class="stat-num">${totalGuests}</div><div class="stat-lbl">Total Guests</div></div><div class="stat-box"><div class="stat-num">${attending.filter(r=>r.meal==='veg').length}</div><div class="stat-lbl">Veg Meals</div></div><div class="stat-box"><div class="stat-num">${attending.filter(r=>r.meal==='nonveg').length}</div><div class="stat-lbl">Non-Veg Meals</div></div>`;
+    const tbody=document.getElementById('rsvp-table-body'); tbody.innerHTML='';
+    if(all.length===0){document.getElementById('no-rsvps').style.display='block';return;} document.getElementById('no-rsvps').style.display='none';
+    all.forEach((r,i)=>{const tr=document.createElement('tr');const mealsStr=Array.isArray(r.meals)&&r.meals.length?r.meals.map(m=>`${m.guest}: ${m.pref.charAt(0).toUpperCase()+m.pref.slice(1)}`).join('<br>'):r.meal?r.meal.charAt(0).toUpperCase()+r.meal.slice(1):'-'; tr.innerHTML=`<td>${i+1}</td><td><strong>${esc(r.name)}</strong></td><td>${esc(r.email)}</td><td>${esc(r.phone)||'-'}</td><td>${r.attending?'<span class="badge-yes">Yes</span>':'<span class="badge-no">No</span>'}</td><td>${r.attending?r.guests:'-'}</td><td style="font-size:.8rem">${mealsStr}</td><td style="white-space:nowrap;font-size:.78rem">${esc(r.indiaArrival)||'-'}</td><td style="white-space:nowrap;font-size:.78rem">${esc(r.indiaDeparture)||'-'}</td><td>${r.indiaDays!=null?r.indiaDays:'-'}</td><td>${esc(r.allergies)||'-'}</td><td style="max-width:180px;font-style:italic;font-size:.82rem">${esc(r.message)||'-'}</td><td style="white-space:nowrap;font-size:.78rem">${esc(r.submittedAt)}</td>`; tbody.appendChild(tr);});
+  }
+  function esc(s){if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function exportCSV(){const all=getAll(); const headers=['Name','Email','Phone','Attending','Guests','Meals','India Arrival','India Departure','Days in India','Allergies','Message','Submitted']; const rows=all.map(r=>{const mealsStr=Array.isArray(r.meals)&&r.meals.length?r.meals.map(m=>`${m.guest}: ${m.pref}`).join('; '):r.meal||'';return [r.name,r.email,r.phone,r.attending?'Yes':'No',r.attending?r.guests:'',mealsStr,r.indiaArrival||'',r.indiaDeparture||'',r.indiaDays!=null?r.indiaDays:'',r.allergies,r.message,r.submittedAt].map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(',')}); const csv=[headers.join(','),...rows].join('\n'); const a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download=`tanvi-justin-rsvps-${new Date().toISOString().slice(0,10)}.csv`; a.click();}
+
+  /* ---- TRAVEL DATE CALENDAR ---- */
+  (function(){
+    const MONTHS=[{year:2026,month:11,label:'December 2026'},{year:2027,month:0,label:'January 2027'}];
+    const DHDRS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+    const WEDDING=new Set(['2026-12-27','2026-12-28','2026-12-29','2026-12-30']);
+    const MNAMES=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    let arrVal=null, depVal=null;
+
+    function pad(n){return String(n).padStart(2,'0');}
+    function toKey(y,m,d){return `${y}-${pad(m+1)}-${pad(d)}`;}
+    function fmtKey(k){if(!k)return '—';const[y,m,d]=k.split('-').map(Number);return `${MNAMES[m-1]} ${d}, ${y}`;}
+
+    function render(){
+      const wrap=document.getElementById('travel-calendar');
+      if(!wrap)return;
+      let h='<div class="cal-months">';
+      MONTHS.forEach(({year,month,label})=>{
+        const first=new Date(year,month,1).getDay();
+        const total=new Date(year,month+1,0).getDate();
+        h+=`<div class="cal-month"><div class="cal-month-header">${label}</div><div class="cal-grid">`;
+        DHDRS.forEach(d=>{h+=`<div class="cal-day-hdr">${d}</div>`;});
+        for(let i=0;i<first;i++) h+=`<div class="cal-day empty"></div>`;
+        for(let d=1;d<=total;d++){
+          const k=toKey(year,month,d);
+          let cls='cal-day';
+          const isArr=k===arrVal, isDep=k===depVal;
+          const inRng=arrVal&&depVal&&k>arrVal&&k<depVal;
+          if(isArr&&isDep) cls+=' range-start range-end';
+          else if(isArr) cls+=' range-start';
+          else if(isDep) cls+=' range-end';
+          else if(inRng) cls+=' in-range';
+          h+=`<div class="${cls}" data-key="${k}">${d}</div>`;
+        }
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="cal-selected-display">
+        <div class="cal-sel-box"><div class="cal-sel-label">✈️ Arriving</div><div class="cal-sel-val">${fmtKey(arrVal)}</div></div>
+        <div class="cal-sel-box"><div class="cal-sel-label">🏡 Departing</div><div class="cal-sel-val">${fmtKey(depVal)}</div></div>
+      </div>`;
+      h+=`<div class="cal-actions">
+        ${(arrVal||depVal)?'<button type="button" class="cal-clear" id="cal-clear-btn">Clear dates</button>':''}
+      </div>`;
+      wrap.innerHTML=h;
+
+      wrap.querySelectorAll('.cal-day[data-key]').forEach(el=>{
+        el.addEventListener('click',function(){
+          const k=this.dataset.key;
+          if(!arrVal||(arrVal&&depVal)){arrVal=k;depVal=null;}
+          else if(k===arrVal){arrVal=null;}
+          else if(k<arrVal){arrVal=k;depVal=null;}
+          else{depVal=k;}
+          sync();render();
+        });
+      });
+      const clr=wrap.querySelector('#cal-clear-btn');
+      if(clr) clr.addEventListener('click',()=>{arrVal=null;depVal=null;sync();render();});
+    }
+
+    function sync(){
+      const a=document.getElementById('indiaArrival'),d=document.getElementById('indiaDeparture');
+      if(a){a.value=arrVal||'';a.dispatchEvent(new Event('change'));}
+      if(d){d.value=depVal||'';d.dispatchEvent(new Event('change'));}
+    }
+
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render);
+    else render();
+  })();
+</script>
+</body>
+</html>

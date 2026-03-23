@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ - Tanvi &amp; Justin's Wedding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--sand:#f5e9d3;--sand-mid:#e8d5b0;--sea:#2a6e7c;--sea-light:#4a9dad;--coral:#c96a3e;--gold:#c4933f;--white:#fffdf8;--text:#3a2e25;}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Raleway',sans-serif;background:var(--white);color:var(--text)}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,rgba(196,147,63,.07),transparent 28%),radial-gradient(circle at 85% 0,rgba(42,110,124,.08),transparent 30%);pointer-events:none;z-index:-1}
+    .topnav{background:rgba(42,110,124,.96);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+    .topnav-brand{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);text-decoration:none}
+    .topnav-links a{color:rgba(255,253,248,.75);text-decoration:none;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;margin-left:1.5rem;transition:color .3s}
+    .topnav-links a:hover{color:var(--sand)}
+    .faq-hero{background:linear-gradient(160deg,rgba(42,110,124,.9) 0%,rgba(196,147,63,.7) 100%),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80') center/cover;padding:5rem 2rem 5rem;text-align:center;color:var(--white);position:relative;overflow:hidden}
+    .faq-hero .eyebrow{font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--sand);margin-bottom:.8rem}
+    .faq-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:300}
+    .faq-hero p{max-width:540px;margin:1rem auto 0;font-size:.88rem;opacity:.84;line-height:1.8}
+    .hero-wave{position:absolute;bottom:-2px;left:0;width:100%}
+    .faq-tabs{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:2.5rem 1rem 0}
+    .tab-btn{background:transparent;border:1px solid var(--sand-mid);color:#8a7e74;padding:.45rem 1.2rem;font-family:'Raleway',sans-serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:0}
+    .tab-btn.active,.tab-btn:hover{background:var(--sea);color:var(--white);border-color:var(--sea)}
+    .faq-content{max-width:840px;margin:3rem auto 5rem;padding:0 1rem}
+    .faq-category{margin-bottom:3rem}
+    .faq-category-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--sea);margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--sand-mid);display:flex;align-items:center;gap:.6rem}
+    .faq-item{border:none;border-bottom:1px solid var(--sand-mid);transition:opacity .3s,transform .3s;background:transparent}
+    .faq-item.hidden{display:none}
+    .faq-question{width:100%;background:transparent;border:none;text-align:left;padding:1.2rem 0;font-family:'Raleway',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .3s}
+    .faq-question:hover,.faq-question.open{color:var(--sea)}
+    .faq-icon{width:22px;height:22px;flex-shrink:0;border:1px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:transform .3s,background .3s}
+    .faq-question.open .faq-icon{background:var(--sea);color:var(--white);border-color:var(--sea);transform:rotate(45deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+    .faq-answer.open{max-height:600px}
+    .faq-answer-inner{padding:0 0 1.4rem;font-size:.88rem;line-height:1.9;color:#5a4e44}
+    .faq-answer-inner strong{color:var(--sea)}
+    .faq-answer-inner a{color:var(--coral)}
+    .no-results{text-align:center;padding:3rem 1rem;display:none}
+    .no-results.visible{display:block}
+    .no-results p{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#8a7e74}
+    .contact-card{background:linear-gradient(135deg,var(--sea),#245964);color:var(--white);padding:3rem 2rem;text-align:center;margin:0 1rem 5rem;max-width:800px;margin-left:auto;margin-right:auto;box-shadow:0 18px 40px rgba(42,110,124,.16)}
+    .contact-card h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:.8rem}
+    .contact-card>p{font-size:.88rem;opacity:.84;line-height:1.8;max-width:520px;margin:0 auto 1.8rem}
+    .contact-form{max-width:500px;margin:0 auto;text-align:left}
+    .contact-form input,.contact-form textarea{width:100%;background:rgba(255,253,248,.12);border:none;border-bottom:1px solid rgba(255,253,248,.4);color:var(--white);font-family:'Raleway',sans-serif;font-size:.88rem;padding:.8rem .2rem;outline:none;margin-bottom:1.2rem;transition:border-color .3s}
+    .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,253,248,.5)}
+    .contact-form input:focus,.contact-form textarea:focus{border-bottom-color:var(--sand)}
+    .contact-form textarea{resize:vertical;min-height:100px}
+    .contact-form button{background:var(--sand);color:var(--text);border:none;padding:.75rem 2.2rem;font-family:'Raleway',sans-serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .2s;display:block;margin:0 auto}
+    .contact-form button:hover{background:var(--sand-mid);transform:translateY(-2px)}
+    .contact-form button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .contact-status{text-align:center;margin-top:1rem;font-size:.82rem;min-height:1.2em}
+    footer{background:var(--text);color:rgba(255,253,248,.5);padding:2rem 0;text-align:center;font-size:.78rem}
+    footer a{color:rgba(255,253,248,.5);text-decoration:none;margin:0 1rem} footer a:hover{color:var(--gold)}
+    .topnav-menu-btn{display:none;background:#fff;border:none;color:var(--sea);padding:.3rem .75rem;font-size:1.3rem;cursor:pointer;line-height:1;border-radius:2px}
+    @media(max-width:576px){.topnav{position:relative;flex-wrap:wrap}.topnav-links{display:none;flex-direction:column;width:100%;padding:.75rem 0;gap:0}.topnav-links.open{display:flex}.topnav-links a{margin-left:0;padding:.6rem 0;border-bottom:1px solid rgba(255,253,248,.1)}.topnav-menu-btn{display:block}}
+  </style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="topnav-brand" href="index.html">Tanvi <em>&amp;</em> Justin</a>
+  <button class="topnav-menu-btn" id="menuBtn">&#9776;</button>
+  <div class="topnav-links">
+    <a href="index.html">Home</a>
+    <a href="travel.html">Travel</a>
+    <a href="rsvp.html">RSVP</a>
+    <a href="trivia.html">Trivia</a>
+  </div>
+</nav>
+
+<div class="faq-hero">
+  <p class="eyebrow">Got Questions?</p>
+  <h1>Frequently Asked Questions</h1>
+  <p>Everything you need to know about our beach wedding in Mangalore.</p>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fffdf8"/>
+  </svg>
+</div>
+
+
+<div class="faq-tabs" id="faqTabs">
+  <button class="tab-btn active" data-cat="all">All</button>
+  <button class="tab-btn" data-cat="travel">Travel &amp; Stay</button>
+  <button class="tab-btn" data-cat="ceremony">Ceremony</button>
+  <button class="tab-btn" data-cat="attire">Attire</button>
+  <button class="tab-btn" data-cat="misc">General</button>
+</div>
+
+<div class="faq-content" id="faqContent">
+  <div class="faq-category" data-cat="misc" id="cat-misc">
+    <div class="faq-category-title">General Questions</div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">What is the weather like in December in Mangalore?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">December is one of the <strong>most pleasant times</strong> to visit coastal Karnataka. It falls in the dry season, so expect warm, sunny days with temperatures between <strong>24–32°C</strong>, low humidity, and very little chance of rain. Evenings are beautifully cool with a gentle sea breeze — you may want a light shawl or stole for the night.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">Do you have a gift registry?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Your presence is truly the greatest gift. That said, if you'd like to honour us, details of our gift registry will be shared with the formal invitation closer to the date.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">How do I convert currency before arriving in India?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">The local currency is the <strong>Indian Rupee (INR)</strong>. For the best rates, we recommend converting currency at a bank or an authorised foreign exchange counter at the airport on arrival. Most major hotels, restaurants, and shops accept cards, but having some cash handy for local vendors and auto-rickshaws is always useful.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">How do I get a local SIM or eSIM for internet access in India?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">The easiest option for international visitors is an <strong>eSIM</strong>, which you can purchase and activate before you even board your flight. Popular providers include <strong>Airalo</strong>, <strong>Holafly</strong>, and <strong>Nomad</strong> — search for an India data plan, download the eSIM profile to your phone, and you'll be connected on arrival. Note that <strong>eSIMs only work on unlocked phones</strong>. If your phone is locked to a carrier, contact your provider before you travel and ask about their international travel plans — most offer affordable short-term add-ons for India.<br/><br/>Once you have data, download <strong>WhatsApp</strong> — it's by far the most widely used messaging app in India and is how most of us will stay in touch over the wedding weekend. You can reach the couple and coordinate with the wedding group easily through WhatsApp.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">What should I know about cultural etiquette?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner"><strong>Remove your shoes</strong> before entering any religious or ceremony space — you'll see a pile of footwear at the entrance as your cue.<br/><br/><strong>Dress modestly</strong> at all ceremonies. Shoulders and knees covered is the general guideline.<br/><br/><strong>Public displays of affection</strong> — hugging, kissing, or physical closeness between unmarried couples — is frowned upon in public spaces and can be illegal under Indian law. Keep it reserved for private settings.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">What everyday items should I pack that people forget?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner"><strong>Power adapter</strong> — India uses Type C/D/M plugs at 230V. Your US plugs won't work without one, so pack a universal adapter before you leave.<br/><br/><strong>Portable power bank</strong> — long event days mean your phone will need a boost between ceremonies.<br/><br/><strong>Notify your bank and credit cards</strong> before you leave to avoid fraud flags blocking your card when you arrive in India.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">Is India safe to visit?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Yes — India is <strong>very safe</strong> for tourists, and Mangalore and Bangalore are both welcoming, family-oriented cities. Millions of international visitors travel to India every year without issue.<br/><br/>A few practical tips: <strong>stay with the group</strong> when exploring, use <strong>Ola or Uber</strong> rather than unmarked taxis, keep copies of your passport and documents handy, and be mindful of your belongings in busy markets. You'll also have the added comfort of traveling with a close-knit group throughout the trip.<br/><br/>The US State Department currently rates India as a <strong>Level 2: Exercise Normal Precautions</strong> destination — the same level as many popular European countries. As with any international travel, awareness and common sense go a long way.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">Is it safe to drink the water?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Stick to <strong>bottled water only</strong> — including for brushing teeth if you have a sensitive stomach. Bottled water is widely available and inexpensive everywhere in India.</div></div></div>
+    <div class="faq-item" data-cat="misc"><button class="faq-question">What if I have more questions?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">We'd love to hear from you. Our wedding coordinator's details will be shared in the formal invitation. In the meantime, feel free to reach out to us directly via the contact form below or through WhatsApp.</div></div></div>
+  </div>
+
+  <div class="faq-category" data-cat="travel" id="cat-travel">
+    <div class="faq-category-title">Travel &amp; Stay</div>
+    <div class="faq-item" data-cat="travel"><button class="faq-question">What are the passport requirements and how early should I renew?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Your passport must be <strong>valid for at least 6 months beyond your travel dates</strong> — this is a hard requirement for entry into India, not a suggestion. Check your expiration date immediately.<br/><br/><strong>Renewal timeline:</strong><br/>· Check your passport expiry date right now if you haven't already<br/>· If it expires within 12 months of your travel — begin renewal as soon as possible<br/>· Standard renewal currently takes <strong>6–8 weeks</strong><br/>· Expedited renewal takes <strong>2–3 weeks</strong><br/><br/>Apply at <strong>travel.state.gov</strong>.</div></div></div>
+    <div class="faq-item" data-cat="travel"><button class="faq-question">Where do I fly into, and how do I get to Mangalore?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Most international flights will route you into <strong>Kempegowda International Airport in Bangalore (BLR)</strong> — the capital of Karnataka and India's Silicon Valley. Bangalore is where her family is based, so you'll feel right at home from the moment you land.<br/><br/>From Bangalore, Mangalore is just a <strong>short 30-minute flight away</strong>. Mangalore is a beautiful <strong>beach town on the coast of Karnataka</strong> — Tanvi's birthplace and hometown where the wedding celebrations will take place.</div></div></div>
+    <div class="faq-item" data-cat="travel"><button class="faq-question">When should I plan to fly from the US?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">We've shared a recommended travel itinerary on the <strong>Travel page</strong> to help guide your planning.<br/><br/>That said, we're happy to work with you based on your schedule — whether you're coming just for the wedding or planning to explore India before or after, we'll help coordinate so everything fits seamlessly.</div></div></div>
+    <div class="faq-item" data-cat="travel"><button class="faq-question">Are rooms arranged for guests?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Yes — <strong>rooms have been reserved for all guests</strong> at Manthan Beach Resort for the full four days of the wedding celebrations (December 27–30). You won't need to worry about booking accommodation; we've taken care of it. If you have any questions about your room or require anything specific, please reach out to us directly.</div></div></div>
+    <div class="faq-item" data-cat="travel"><button class="faq-question">How do I handle jet lag with such a long flight?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">India is <strong>10.5 hours ahead of EST</strong>, so jet lag is real. A few things that help: try to stay awake until local nighttime on your arrival day rather than napping immediately, and melatonin can make a big difference in resetting your sleep cycle. Most importantly, <strong>arriving a few days before the first event is strongly recommended</strong> — you don't want to be exhausted for the ceremonies.</div></div></div>
+    <div class="faq-item" data-cat="travel"><button class="faq-question">How do I get to the venue from Mangalore Airport?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Mangalore International Airport (IXE) is approximately <strong>15 miles</strong> from Manthan Beach Resort. We will be coordinating <strong>complimentary pickups</strong> — once you share your flight details with us, we'll arrange everything from there. Alternatively, taxis and app-cabs (Ola/Uber) are easily available from the airport and take around 35–45 minutes.</div></div></div>
+    <div style="padding:1.5rem 0 2rem;border-bottom:1px solid var(--sand-mid)">
+      <p style="font-size:.85rem;color:#6a5e54;margin-bottom:1rem">For full journey details, arrival plan, venue info, and packing tips:</p>
+      <a href="travel.html" style="display:inline-block;background:var(--sea);color:#fffdf8;text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 1.8rem;transition:background .3s" onmouseover="this.style.background='#4a9dad'" onmouseout="this.style.background='#2a6e7c'">View Full Travel Guide →</a>
+    </div>
+  </div>
+
+  <div class="faq-category" data-cat="ceremony" id="cat-ceremony">
+    <div class="faq-category-title">Ceremony &amp; Schedule</div>
+    <div class="faq-item" data-cat="ceremony"><button class="faq-question">What is the overall structure of a South Indian Hindu wedding?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">South Indian Hindu weddings are deeply rooted in Vedic tradition and tend to be more ritualistic and spiritually focused than the Bollywood-style North Indian weddings your guests may have seen in films. The ceremonies are conducted in <strong>Sanskrit by a priest</strong> and follow a precise, meaningful sequence — each ritual has a specific purpose and significance that has been passed down for centuries.</div></div></div>
+    <div class="faq-item" data-cat="ceremony"><button class="faq-question">Will the ceremony be indoors or outdoors?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">All events will be held <strong>outdoors</strong>. The wedding ceremony takes place on the <strong>beachfront lawn</strong> with an open-air mandap overlooking the Arabian Sea. In the unlikely event of adverse weather, a beautiful indoor backup venue has been arranged.<br/><br/>A note for the <strong>Haldi</strong> — please wear something in <strong>yellow or orange</strong>! Turmeric will be flying and you'll want to lean into the colour of the moment.</div></div></div>
+  </div>
+
+  <div class="faq-category" data-cat="attire" id="cat-attire">
+    <div class="faq-category-title">Attire &amp; Dress Code</div>
+    <div class="faq-item" data-cat="attire"><button class="faq-question">What is the dress code?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner"><strong>Haldi</strong><br/>Wear yellow or orange — this is the one time getting messy is part of the fun. Turmeric paste gets everywhere, so don't wear anything you'd be sad to ruin. Light cotton kurtas, simple salwar suits, or even a plain yellow outfit works perfectly. Turmeric is considered sacred and purifying in Hindu tradition — it's believed to bless, cleanse, and beautify the couple before the union.<br/><br/><strong>Mehndi</strong><br/>Colourful and festive — greens, pinks, turquoise, and bright prints are ideal. This is a relaxed, joyful event so think comfortable and vibrant.<br/><br/><strong>Sangeet</strong><br/>This is the party night — think bold, festive, and fun. Lehengas, anarkalis, sharara sets, or a dressy Indo-Western outfit for women. Men can wear a stylish kurta with trousers or even a well-fitted blazer with Indian elements. Bright and celebratory colours encouraged — this is your chance to go all out.<br/><br/><strong>Wedding Ceremony</strong><br/>Traditional Indian attire is preferred. Women are encouraged to wear a saree, lehenga, or salwar suit. Men should wear a kurta pajama or sherwani. For US guests unfamiliar with where to shop, sites like <strong>FabIndia</strong>, <strong>Utsav Fashion</strong>, and <strong>Soch</strong> offer easy online ordering.</div></div></div>
+
+    <div class="faq-item" data-cat="attire"><button class="faq-question">Is there a shopping trip to buy outfits in India?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Yes! We are organising a <strong>group shopping trip in Bangalore on December 25th and 26th</strong> — and it is an experience in itself. You'll have the chance to browse vibrant Indian markets and boutiques filled with gorgeous fabrics, colours, and styles. A complete outfit — including shoes and jewellery — can be put together for a fraction of what you'd pay abroad, and it makes for an unforgettable part of the trip.<br/><br/>If you're unable to join us in Bangalore on those days, <strong>don't worry</strong> — we can help source and arrange something for you virtually, with outfits selected and shipped to arrive in time for the celebrations. Just let us know and we'll sort it out together.</div></div></div>
+    <div class="faq-item" data-cat="attire"><button class="faq-question">What shoes should I wear for the beach ceremony?<span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">The ceremony mandap is on a <strong>grassy lawn adjacent to the sand</strong>, so most shoes will be fine. You may want to keep a pair of flip-flops handy for barefoot beach moments.</div></div></div>
+  </div>
+
+  <div class="no-results" id="noResults"><p>No questions matched your search.<br/>Try different keywords or browse a category above.</p></div>
+</div>
+
+<div class="contact-card">
+  <h3>Still have a question?</h3>
+  <p>Send us a message and we'll get back to you as soon as possible.</p>
+  <form class="contact-form" id="contactForm" novalidate>
+    <input type="text" id="cName" placeholder="Your name" required/>
+    <input type="email" id="cEmail" placeholder="Your email" required/>
+    <textarea id="cMessage" placeholder="Type your question here..." required></textarea>
+    <button type="submit" id="cSubmit">Send Message</button>
+    <p class="contact-status" id="cStatus"></p>
+  </form>
+</div>
+
+<footer>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--sand);margin-bottom:.5rem;">Tanvi &amp; Justin</div>
+  <a href="index.html">Home</a>
+  <a href="rsvp.html">RSVP</a>
+  <div style="margin-top:1rem;opacity:.4;font-size:.7rem;">27–30 &middot; 12 &middot; 2026 &middot; Mangalore</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  document.getElementById('menuBtn').addEventListener('click',function(){document.querySelector('.topnav-links').classList.toggle('open');});
+
+  emailjs.init({publicKey:'VtEmn7HS2jpayoxJl'});
+
+  document.getElementById('contactForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    const name=document.getElementById('cName').value.trim();
+    const email=document.getElementById('cEmail').value.trim();
+    const message=document.getElementById('cMessage').value.trim();
+    const btn=document.getElementById('cSubmit');
+    const status=document.getElementById('cStatus');
+    if(!name||!email||!message){status.textContent='Please fill in all fields.';return;}
+    btn.disabled=true;
+    btn.textContent='Sending...';
+    status.textContent='';
+    try{
+      const recipients=[
+        {name:'Justin',email:'Justindelgado182@gmail.com'},
+        {name:'Tanvi',email:'tanvihegde12@gmail.com'}
+      ];
+      for(const r of recipients){
+        await emailjs.send('service_1odtvqj','template_8fvtckb',{
+          from_name:name,
+          from_email:email,
+          message:message,
+          to_name:r.name,
+          to_email:r.email
+        });
+      }
+      status.textContent='Message sent! We\'ll be in touch soon.';
+      this.reset();
+    }catch(err){
+      status.textContent='Something went wrong — please try again or reach out via WhatsApp.';
+      console.error(err);
+    }finally{
+      btn.disabled=false;
+      btn.textContent='Send Message';
+    }
+  });
+
+  const items=[...document.querySelectorAll('.faq-item')];
+  const categories=[...document.querySelectorAll('.faq-category')];
+
+  function closeAll(){
+    document.querySelectorAll('.faq-question.open').forEach(q=>q.classList.remove('open'));
+    document.querySelectorAll('.faq-answer.open').forEach(a=>a.classList.remove('open'));
+  }
+
+  document.querySelectorAll('.faq-question').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const answer=this.nextElementSibling;
+      const isOpen=this.classList.contains('open');
+      closeAll();
+      if(!isOpen){
+        this.classList.add('open');
+        answer.classList.add('open');
+      }
+    });
+  });
+
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      closeAll();
+      const activeTab=this.dataset.cat;
+      items.forEach(item=>{
+        item.classList.toggle('hidden', activeTab!=='all' && item.dataset.cat!==activeTab);
+      });
+      categories.forEach(section=>{
+        section.style.display=section.querySelectorAll('.faq-item:not(.hidden)').length?'block':'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
