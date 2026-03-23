@@ -327,7 +327,7 @@
   document.addEventListener('click',e=>{if(!e.target.closest('.cal-add-wrap')) document.querySelectorAll('.cal-dropdown.open').forEach(el=>el.classList.remove('open'));});
   // Set Google Calendar hrefs on page load (avoids popup blocker, uses UTC Z times)
   CAL_EVENTS.forEach((e,i)=>{
-    const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(e.name)}&dates=${e.start}/${e.end}&details=${encodeURIComponent(e.desc)}&location=${encodeURIComponent(e.loc)}`;
+    const url=`https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(e.name)}&dates=${e.start}/${e.end}&details=${encodeURIComponent(e.desc)}&location=${encodeURIComponent(e.loc)}&sf=true&output=xml`;
     const el=document.getElementById('gcal-'+i);
     if(el) el.href=url;
   });
