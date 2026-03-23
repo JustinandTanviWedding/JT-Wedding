@@ -231,23 +231,28 @@
       <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Sunday, Dec 27</div>
         <div class="tl-block"><div class="tl-time">Afternoon</div><div class="tl-event">Guest arrivals &amp; check-in at resort</div></div>
         <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Mehendi</div></div>
-        <div class="cal-add-wrap"><button class="cal-add-btn" onclick="toggleCal(this)">+ Add to Calendar</button><div class="cal-dropdown"><a href="#" onclick="gcal(0);return false;"><span>📅</span> Google Calendar</a><a href="#" onclick="ics(0);return false;"><span>🍎</span> Apple Calendar</a></div></div>
       </div></div>
       <div class="tl-item right reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Monday, Dec 28</div>
         <div class="tl-block"><div class="tl-time">Morning</div><div class="tl-event">Relaxation at the beach<br/>Explore the resort</div></div>
         <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Muhurta<br/>Sangeet</div></div>
-        <div class="cal-add-wrap"><button class="cal-add-btn" onclick="toggleCal(this)">+ Add to Calendar</button><div class="cal-dropdown"><a href="#" onclick="gcal(1);return false;"><span>📅</span> Google Calendar</a><a href="#" onclick="ics(1);return false;"><span>🍎</span> Apple Calendar</a></div></div>
       </div></div>
       <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Tuesday, Dec 29</div>
         <div class="tl-block"><div class="tl-time">Morning</div><div class="tl-event">Haldi &amp; Roce</div></div>
         <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Free to explore &amp; unwind</div></div>
-        <div class="cal-add-wrap"><button class="cal-add-btn" onclick="toggleCal(this)">+ Add to Calendar</button><div class="cal-dropdown"><a href="#" onclick="gcal(2);return false;"><span>📅</span> Google Calendar</a><a href="#" onclick="ics(2);return false;"><span>🍎</span> Apple Calendar</a></div></div>
       </div></div>
       <div class="tl-item right reveal"><div class="tl-dot"></div><div class="tl-card"><div class="tl-day">Wednesday, Dec 30</div>
         <div class="tl-block"><div class="tl-time">Afternoon</div><div class="tl-event">Vegetarian banana leaf meal</div></div>
         <div class="tl-block"><div class="tl-time">Evening</div><div class="tl-event">Wedding Ceremony &middot; 5:30 PM<br/>Reception Dinner</div></div>
-        <div class="cal-add-wrap"><button class="cal-add-btn" onclick="toggleCal(this)">+ Add to Calendar</button><div class="cal-dropdown"><a href="#" onclick="gcal(3);return false;"><span>📅</span> Google Calendar</a><a href="#" onclick="ics(3);return false;"><span>🍎</span> Apple Calendar</a></div></div>
       </div></div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <div class="cal-add-wrap" style="display:inline-block;">
+        <button class="cal-add-btn" style="font-size:.72rem;padding:.5rem 1.4rem;" onclick="toggleCal(this)">+ Add All Events to Calendar</button>
+        <div class="cal-dropdown">
+          <a href="#" onclick="gcalAll();return false;"><span>📅</span> Google Calendar</a>
+          <a href="#" onclick="icsAll();return false;"><span>🍎</span> Apple / Outlook (.ics)</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -308,19 +313,21 @@
     if(!isOpen) dd.classList.add('open');
   }
   document.addEventListener('click',e=>{if(!e.target.closest('.cal-add-wrap')) document.querySelectorAll('.cal-dropdown.open').forEach(el=>el.classList.remove('open'));});
-  function gcal(i){
-    const e=CAL_EVENTS[i];
-    const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(e.name)}&dates=${e.start}/${e.end}&ctz=Asia%2FKolkata&details=${encodeURIComponent(e.desc)}&location=${encodeURIComponent(e.loc)}`;
-    window.open(url,'_blank');
+  function gcalAll(){
+    CAL_EVENTS.forEach((e,i)=>{
+      setTimeout(()=>{
+        const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(e.name)}&dates=${e.start}/${e.end}&ctz=Asia%2FKolkata&details=${encodeURIComponent(e.desc)}&location=${encodeURIComponent(e.loc)}`;
+        window.open(url,'_blank');
+      }, i*400);
+    });
   }
-  function ics(i){
-    const e=CAL_EVENTS[i];
-    const uid=`${e.start}-wedding@tanviandjustin.com`;
-    const content=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Tanvi & Justin Wedding//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nBEGIN:VEVENT\r\nDTSTART;TZID=Asia/Kolkata:${e.start}\r\nDTEND;TZID=Asia/Kolkata:${e.end}\r\nSUMMARY:${e.name}\r\nDESCRIPTION:${e.desc}\r\nLOCATION:${e.loc}\r\nUID:${uid}\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+  function icsAll(){
+    const vevents=CAL_EVENTS.map(e=>`BEGIN:VEVENT\r\nDTSTART;TZID=Asia/Kolkata:${e.start}\r\nDTEND;TZID=Asia/Kolkata:${e.end}\r\nSUMMARY:${e.name}\r\nDESCRIPTION:${e.desc}\r\nLOCATION:${e.loc}\r\nUID:${e.start}-wedding@tanviandjustin.com\r\nEND:VEVENT`).join('\r\n');
+    const content=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Tanvi & Justin Wedding//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n${vevents}\r\nEND:VCALENDAR`;
     const blob=new Blob([content],{type:'text/calendar;charset=utf-8'});
     const a=document.createElement('a');
     a.href=URL.createObjectURL(blob);
-    a.download=`${e.name.split('—')[0].trim().replace(/\s+/g,'-')}.ics`;
+    a.download='Tanvi-Justin-Wedding-Events.ics';
     a.click();
   }
   const wd=new Date('2026-12-29T17:30:00+05:30');
