@@ -232,10 +232,42 @@
   const attRadios=document.querySelectorAll('input[name="attendance"]');
   const guestFields=document.querySelectorAll('.guests-field');
 
+  function renderAdditionalGuests(count){
+    const wrap=document.getElementById('additional-guests-wrap');
+    wrap.innerHTML='';
+    for(let i=2;i<=count;i++){
+      wrap.innerHTML+=`<div style="border:1px solid var(--sand-mid);padding:1.2rem;margin-bottom:1rem;border-radius:4px;">
+        <p style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sea);margin-bottom:1rem;font-weight:500">Guest ${i}</p>
+        <div class="mb-3">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-control guest-name" data-guest="${i}" placeholder="Guest ${i} full name"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Dietary Restrictions / Allergies</label>
+          <input type="text" class="form-control guest-allergy" data-guest="${i}" placeholder="e.g. nut allergy, gluten-free"/>
+        </div>
+        <div>
+          <label class="form-label" style="color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-size:.75rem;">Sangeet Performance?</label>
+          <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.4rem;">
+            <label style="font-size:.85rem;cursor:pointer;"><input type="radio" name="dance-${i}" value="yes" style="accent-color:var(--gold);margin-right:.5rem;"/> Yes, I'm in! 💃</label>
+            <label style="font-size:.85rem;cursor:pointer;"><input type="radio" name="dance-${i}" value="maybe" style="accent-color:var(--gold);margin-right:.5rem;"/> Maybe — tell me more! 🤔</label>
+            <label style="font-size:.85rem;cursor:pointer;"><input type="radio" name="dance-${i}" value="no" style="accent-color:var(--gold);margin-right:.5rem;"/> I'll cheer from the audience 😊</label>
+          </div>
+        </div>
+      </div>`;
+    }
+  }
+
+  document.getElementById('guestCount').addEventListener('change',function(){
+    const attending=document.querySelector('input[name="attendance"]:checked')?.value==='yes';
+    if(attending) renderAdditionalGuests(parseInt(this.value)||1);
+  });
+
   attRadios.forEach(radio=>radio.addEventListener('change',()=>{
     const attendance=document.querySelector('input[name="attendance"]:checked')?.value;
     const attending=attendance==='yes';
     guestFields.forEach(f=>f.classList.toggle('visible',attending));
+    if(attending) renderAdditionalGuests(parseInt(document.getElementById('guestCount').value)||1);
 
     const msgPlaceholders={yes:'Share your wishes or a memory...',no:'Send the couple a warm message...'};
     document.getElementById('message').placeholder=msgPlaceholders[attendance]||'Share your wishes or a memory...';
