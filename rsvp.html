@@ -301,7 +301,14 @@
     const indiaDeparture=document.getElementById('indiaDeparture').value;
     const indiaDays=(indiaArrival&&indiaDeparture)?Math.round((new Date(indiaDeparture)-new Date(indiaArrival))/86400000):null;
     const danceAnswer=document.querySelector('input[name="dance"]:checked')?.value||null;
-    const record={id:Date.now(),name,email,phone:document.getElementById('phone').value.trim(),attending,guests:guestCount,indiaArrival,indiaDeparture,indiaDays,allergies:document.getElementById('allergies').value.trim(),message:document.getElementById('message').value.trim(),dance:danceAnswer,submittedAt:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})};
+    const additionalGuests=[];
+    for(let i=2;i<=guestCount;i++){
+      const gName=document.querySelector(`.guest-name[data-guest="${i}"]`)?.value.trim()||'';
+      const gAllergy=document.querySelector(`.guest-allergy[data-guest="${i}"]`)?.value.trim()||'';
+      const gDance=document.querySelector(`input[name="dance-${i}"]:checked`)?.value||null;
+      additionalGuests.push({name:gName,allergies:gAllergy,dance:gDance});
+    }
+    const record={id:Date.now(),name,email,phone:document.getElementById('phone').value.trim(),attending,guests:guestCount,indiaArrival,indiaDeparture,indiaDays,allergies:document.getElementById('allergies').value.trim(),message:document.getElementById('message').value.trim(),dance:danceAnswer,additionalGuests,submittedAt:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})};
     const all=getAll(); all.push(record); localStorage.setItem('tanvi_justin_rsvps',JSON.stringify(all));
     sendNotifications(record).catch(err=>console.warn('Notification error:',err));
 
